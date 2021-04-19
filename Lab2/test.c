@@ -12,11 +12,17 @@ int main(int argc, char *argv[]) {
     char *str1 = "hip";
     char *str2 = "hop";
     char *str3 = "hippy";
+    printf("adding\n");
     addElement(testSet, str1);
+    printf("adding\n");
     addElement(testSet, str2);
+    printf("adding\n");
     addElement(testSet, str3);
+    printf("removing\n");
     removeElement(testSet, str3);
+    printf("counting\n");
     //printSet(testSet);
     printf("I am %d elements long\n", numElements(testSet));
+    printf("destroying\n");
     destroySet(testSet);
 }
