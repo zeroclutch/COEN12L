@@ -8,7 +8,7 @@
 
 static int search(SET *sp, char *elt);
 
-/**
+/*
  * @brief A collection of strings
  * int length The number of elements currently in the set
  * int max The maximum size of the set
@@ -124,7 +124,7 @@ void addElement(SET *sp, char *elt) {
     int index = search(sp, elt);
     if(index > -1) {
         // printf("Inserting at %d index\n", index);
-        printSet(sp);
+        // printSet(sp);
         // Replace in reverse order 
         for(int i = sp->length; i > index; i--) {
             sp->elements[i] = sp->elements[i - 1];
@@ -180,29 +180,32 @@ char *findElement(SET *sp, char *elt) {
     }
 }
 
+
+
+
+
+
 /**
- * @brief Moves the elements to a new set
- * 
- * Runtime: O(nlog(n))
- * 
- * SET *sp The set pointer this refers to
- * char *elt The element to remove
- */
+ *  * @brief Moves the elements to a new set
+ *   * 
+ *    * Runtime: O(n)
+ *     * 
+ *      * SET *sp The set pointer this refers to
+ *       * char *elt The element to remove
+ *        */
 char **getElements(SET *sp) {
     // Check if arguments exist
-    assert(sp != NULL);
+	     assert(sp != NULL);
 
-    char **elements;
-    elements = malloc(sizeof(sp->elements));
-    
-    int i;
-    for(i = 0; i < sp->length; i++) {
-        elements[i] = sp->elements[i];
-    }
-    return elements;
+        char **elements = (char*) malloc(sizeof(char*) * sp->length);
+                elements = sp->elements;
+                         return elements;
 }
 
-/**
+
+
+
+/*
  * @brief Implements binary search to find the correct location
  * for an element that has not been inserted into the set.
  * 

@@ -185,13 +185,10 @@ char **getElements(SET *sp) {
     // Check if arguments exist
     assert(sp != NULL);
 
-    char **elements;
-    elements = malloc(sizeof(sp->elements));
+    char **elements = (char*) malloc(sizeof(char*) * sp->length);
     
-    int i;
-    for(i = 0; i < sp->length; i++) {
-        elements[i] = sp->elements[i];
-    }
+    elements = sp->elements;
+    
     return elements;
 }
 
