@@ -3,10 +3,11 @@
 # include <stdlib.h>
 # include <string.h>
 # include <assert.h>
+# include <stdbool.h>
 # include "set.h"
 # define DEBUG_MODE 1
 
-static int search(SET *sp, char *elt);
+static int search(SET *sp, char *elt, bool *found);
 
 /*
  * @brief A collection of strings
@@ -121,8 +122,9 @@ void addElement(SET *sp, char *elt) {
     assert(eltCopy != NULL);
 
     // Avoid inserting duplicates
-    int index = search(sp, elt);
-    if(index > -1) {
+    bool found = false;
+    int index = search(sp, elt, &found);
+    if(!found) {
         // printf("Inserting at %d index\n", index);
         // printSet(sp);
         // Replace in reverse order 
@@ -147,10 +149,11 @@ void removeElement(SET *sp, char *elt) {
     assert(sp != NULL && elt != NULL);
 
     if(sp->length > 0) {
-        int index = search(sp, elt);
-        if(index > -1) {
+    bool found = false;
+    int index = search(sp, elt, &found);
+        if(found) {
             free(sp->elements[index]);
-            // Replace with next element (arbitrary order)
+            // Replace with next element (sorted order)
             for(int i = index; i < sp->length - 1; i++) {
                 sp->elements[i] = sp->elements[i + 1];
             }
@@ -172,38 +175,34 @@ char *findElement(SET *sp, char *elt) {
     // Check if arguments exist
     assert(sp != NULL && elt != NULL);
 
-    int index = search(sp, elt);
-    if(index == -1) {
+    bool found = false;
+    int index = search(sp, elt, &found);
+    if(found) {
         return sp->elements[index];
     } else {
         return NULL;
     }
 }
 
-
-
-
-
-
 /**
  *  * @brief Moves the elements to a new set
- *   * 
- *    * Runtime: O(n)
- *     * 
- *      * SET *sp The set pointer this refers to
- *       * char *elt The element to remove
- *        */
+ * 
+ * Runtime: O(n)
+ * 
+ * SET *sp The set pointer this refers to
+ * char *elt The element to remove
+ */
 char **getElements(SET *sp) {
     // Check if arguments exist
-	     assert(sp != NULL);
+    assert(sp != NULL);
 
-        char **elements = (char*) malloc(sizeof(char*) * sp->length);
-                elements = sp->elements;
-                         return elements;
+    size_t size = sizeof(char*) * sp->length;
+    char **elements = (char**) malloc(size);
+    
+    memcpy(elements, sp->elements, size);
+    
+    return elements;
 }
-
-
-
 
 /*
  * @brief Implements binary search to find the correct location
@@ -216,16 +215,15 @@ char **getElements(SET *sp) {
  * @return int Returns -1 if there is a match, or the index where
  * the unique element should be inserted.
  */
-static int search(SET *sp, char *elt) {
+static int search(SET *sp, char *elt, bool *found) {
     // Check if arguments exist
     assert(sp != NULL && elt != NULL);
-    int low, high, avg, diff, i;
-    i = 0;
+    int low, high, avg, diff;
     low = 0;
     high = sp->length - 1;
 
     // While the element is not in the range and not already found
-    while(low <= high && !i) {
+    while(low <= high) {
         // Average floored between low and hi
         avg = (low + high) / 2;
         diff = strcmp(elt, sp->elements[avg]);
@@ -245,15 +243,12 @@ static int search(SET *sp, char *elt) {
 
         // A match has been found
         else {
-            i = -1;
+            *found = true;
+            return avg;
         }
     }
 
-    // If i hasn't been found yet, 
-    if(!i) {
-        i = low;
-    }
-    
     // printf("Found at %d index\n", i);
-    return i;
+    // If i hasn't been found yet
+    return low;
 }

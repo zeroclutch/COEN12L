@@ -176,7 +176,7 @@ char *findElement(SET *sp, char *elt) {
 /**
  * @brief Moves the elements to a new set
  * 
- * Runtime: O(n)
+ * Runtime: O(1)
  * 
  * SET *sp The set pointer this refers to
  * char *elt The element to remove
@@ -185,9 +185,10 @@ char **getElements(SET *sp) {
     // Check if arguments exist
     assert(sp != NULL);
 
-    char **elements = (char*) malloc(sizeof(char*) * sp->length);
+    size_t size = sizeof(char*) * sp->length;
+    char **elements = (char**) malloc(size);
     
-    elements = sp->elements;
+    memcpy(elements, sp->elements, size);
     
     return elements;
 }
