@@ -1,28 +1,28 @@
 unique
 ------
                               unsorted  sorted
-GreenEggsAndHam.txt             ????     ????
-Macbeth.txt                     ????     ????
-Genesis.txt                     ????     ????
-HoundOfTheBaskervilles.txt      ????     ????
-TheWarOfTheWorlds.txt           ????     ????
-TreasureIsland.txt              ????     ????
-TheSecretGarden.txt             ????     ????
-TwentyThousandLeagues.txt       ????     ????
-TheCountOfMonteCristo.txt       ????     ????
-Bible.txt                       ????     ????
+GreenEggsAndHam.txt           9ms       5ms   
+Macbeth.txt                   126ms     21ms  
+Genesis.txt                   120ms     28ms  
+HoundOfTheBaskervilles.txt    263ms     47ms  
+TheWarOfTheWorlds.txt         327ms     58ms  
+TreasureIsland.txt            307ms     63ms  
+TheSecretGarden.txt           270ms     56ms  
+TwentyThousandLeagues.txt     648ms     92ms  
+TheCountOfMonteCristo.txt     4294ms    317ms 
+Bible.txt                     6286ms    376ms 
 
 
 parity
 ------
-                              unsorted  sorted
-GreenEggsAndHam.txt             ????     ????
-Macbeth.txt                     ????     ????
-Genesis.txt                     ????     ????
-HoundOfTheBaskervilles.txt      ????     ????
-TheWarOfTheWorlds.txt           ????     ????
-TreasureIsland.txt              ????     ????
-TheSecretGarden.txt             ????     ????
-TwentyThousandLeagues.txt       ????     ????
-TheCountOfMonteCristo.txt       ????     ????
-Bible.txt                       ????     ????
+                              unsorted  sorted  
+GreenEggsAndHam.txt           6ms       13ms    
+Macbeth.txt                   278ms     121ms   
+Genesis.txt                   319ms     158ms   
+HoundOfTheBaskervilles.txt    1337ms    444ms   
+TheWarOfTheWorlds.txt         2811ms    459ms   
+TreasureIsland.txt            3240ms    410ms   
+TheSecretGarden.txt           1493ms    347ms   
+TwentyThousandLeagues.txt     3906ms    1157ms  
+TheCountOfMonteCristo.txt     55656ms   5463ms  
+Bible.txt                     62168ms   8565ms  
